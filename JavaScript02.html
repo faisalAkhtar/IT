@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practical</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+            body{margin:0;background-color:black;color:lavender;font-family:Montserrat;}
+            h2{width:100%;text-align:center;margin:40px 0;}
+            form{width:50%;margin:50px 25%;border:2px solid lavender;}
+            div{width:100%;padding:20px 0;border:1px solid lavender;}
+            span{width:30%;float:left;text-align:right;padding:10px 5%;}
+            input{width:40%;margin-left:5%;font-family:Montserrat;background-color:transparent;border:none;border-bottom:1px solid black;padding:10px 5%;color:lavender;font-size:100%;}
+            input:focus{outline:none;border-bottom:1px solid lavender;transition-duration:1s;}
+            input[type="submit"]{width:20%;margin:30px 40%;font-family:Montserrat;font-size:100%;background-color:lavender;color:black;font-weight:bold;border:1px solid lavender;padding:10px 0;cursor:pointer;}
+            input[type="submit"]:hover,input[type="submit"]:focus{outline:none;background-color:black;color:lavender;transition-duration:0.5s;font-weight:normal}
+            #Faisal{width:50%;margin:50px 25%;padding:0;border:none;display:none;}
+            #Faisal div{text-align:center;}
+            @media (max-width: 600px) {form{width:80%;margin-left:10%;}button{width:30%;margin:25px 35%;}span,input{width:80%;text-align:center;}}
+        </style>
+    </head>
+    <body>
+        <form method="post" name="loginForm" action="" onsubmit="return checkCredentials()">
+        <h2>User Login</h2>
+            <div>
+                <span>Username</span>
+                <input type="text" name="user" placeholder="Username goes here..." autofocus>
+            </div>
+            <div>
+                <span>Password</span>
+                <input type="password" name="pass" placeholder="Password goes here...">
+            </div>
+            <div>
+                <input type="submit" value="SIGN IN">
+            </div>
+        </form>
+        
+        <div id="Faisal">
+            <h2><u>Form Details</u></h2>
+            <div id="welcome"></div>
+        </div>
+
+        <script>
+            var regex = /^[a-zA-Z0-9_]{5,25}$/;
+            function checkCredentials() {
+                var user = document.forms["loginForm"]["user"];
+                var pass = document.forms["loginForm"]["pass"];
+                if(user.value==="") {
+                    alert("Username can't be empty!");
+                    user.focus();
+                    return false;
+                } else {
+                    if(!regex.test(user.value)) {
+                        alert("Username invalid! Only alphabets, numbers and underscores with no whitespaces are allowed.");
+                        user.focus();
+                        return false;
+                    }
+                }
+                if(pass.value==="") {
+                    alert("Password can't be empty!");
+                    pass.focus();
+                    return false;
+                }
+
+                if(user.value==="admin" && pass.value==="root") {
+                    document.forms["loginForm"].remove();
+                    document.getElementById("Faisal").style.display = "block";
+                    document.getElementById("welcome").innerHTML = "Welcome " + user.value + "!";
+                    return false;
+                } else {
+                    alert("Incorrect username and password pair!");
+                    return false;
+                }
+            }
+        </script>
+    </body>
+</html>

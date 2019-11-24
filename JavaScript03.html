@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practical</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+            body{margin:0;background-color:black;color:lavender;font-family:Montserrat;}
+            h2{width:100%;text-align:center;margin-top:50px;text-transform:uppercase;}
+            form,div{width:50%;margin:30px 25% 30px 25%;border:2px solid lavender;}
+            input{width:40%;margin:30px 0 0 25%;font-family:Montserrat;background-color:lavender;border:none;border-bottom:1px solid black;padding:10px 5%;color:black;font-size:100%;}
+            input:focus{outline:none;}
+            input[type="submit"]{width:50%;margin:30px 0 30px 25%;font-family:Montserrat;font-size:100%;background-color:lavender;color:black;font-weight:bold;border:1px solid lavender;padding:10px 0;cursor:pointer;}
+            input[type="submit"]:hover,input[type="submit"]:focus{outline:none;background-color:black;color:lavender;transition-duration:0.5s;font-weight:normal}
+            #sort{display:none;}
+            div{display:none;}
+            span{width:90%;display:block;padding:10px 5%;}
+        </style>
+    </head>
+    <body>
+        <h2>Bubble Sort</h2>
+        <form method="get" name="makeArray" onsubmit="return makeArrayFunction()">
+            <input type="number" name="elements" min="2" max="10" placeholder="No of elements in the array" required autofocus>
+            <input type="submit" value="Make Array">
+        </form>
+
+        <form method="get" id="sort" name="sortArray" onsubmit="return sortArrayFunction()">
+        </form>
+        
+        <div>
+            <span><u>Unsorted Array</u></span>
+            <span id="ua"></span>
+            <span><u>Bubble Sort</u></span>
+            <span id="bs"></span>
+            <span><u>Sorted Array</u></span>
+            <span id="sa"></span>
+        </div>
+        
+        <script>
+            var num = 0;
+            var elements;
+            function makeArrayFunction() {
+                num = document.forms["makeArray"]["elements"].value;
+                elements = new Array(num);
+
+                for(var i=0; i<num; i++) {
+                    var input = document.createElement("input");
+                    input.type = "number";
+                    input.name = "e" + i;
+                    input.placeholder = "Element " + (i+1);
+                    input.required = "true";
+                    document.getElementById("sort").appendChild(input);
+                }
+
+                var input = document.createElement("input");
+                input.type = "submit";
+                input.value = "Sort Array";
+                document.getElementById("sort").appendChild(input);
+
+                document.getElementById("sort").style.display = "block";
+                document.forms["sortArray"]["e0"].focus();
+                return false;
+            }
+
+            function sortArrayFunction() {
+                for(var i=0; i<num; i++) {
+                    elements.push(document.forms["sortArray"]["e"+i].value);
+                }
+                elements.shift();
+
+                document.getElementById("bs").innerHTML = "";
+                document.getElementsByTagName("div")[0].style.display = "block";
+                document.getElementById("ua").innerHTML = elements;
+                bubbleSort(elements);
+                document.getElementById("sa").innerHTML = elements;
+                elements.length = 0;
+                return false;
+            }
+            
+            function bubbleSort(items) {
+                var length = items.length;
+                for (var i = 0; i < length; i++) {
+                    document.getElementById("bs").append(items);
+                    document.getElementById("bs").append(document.createElement("br"));
+                    for (var j = 0; j < (length - i - 1); j++) {
+                        if (items[j] > items[j + 1]) {
+                            var tmp = items[j];
+                            items[j] = items[j + 1];
+                            items[j + 1] = tmp;
+                        }
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

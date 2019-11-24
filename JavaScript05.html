@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practical</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+            body{margin:0;background-color:black;color:lavender;font-family:Montserrat;}
+            #txt{width:100%;text-align:center;position:absolute;top:25%;transform:translateY(-25%);}
+            #mov{text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition-duration:0.5s;}
+        </style>
+    </head>
+    <body>
+        <h2 id="txt">Color of this text will change to <u>crimson</u>,<br>2 seconds after loading!</h2>
+        <h2 id="mov">Booo!!</h2>
+
+        <script>
+            setTimeout(function(){
+                document.getElementById("txt").style.color = "crimson";
+            }, 2000);
+
+            setInterval(function(){
+                document.getElementById("mov").style.left = "75%";
+                document.getElementById("mov").style.transform = "translateX(-75%)";
+            }, 1000);
+
+            setInterval(function(){
+                document.getElementById("mov").style.left = "25%";
+                document.getElementById("mov").style.transform = "translateX(-25%%)";
+            }, 2000);
+        </script>
+    </body>
+</html>

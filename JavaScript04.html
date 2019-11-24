@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practical</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+            body{margin:0;background-color:black;color:lavender;font-family:Montserrat;}
+            h2{width:100%;text-align:center;margin-top:50px;text-transform:uppercase;}
+            form{width:100%;margin:0;}
+            input{width:40%;margin:20px 25%;font-family:Montserrat;background-color:lavender;border:none;border-bottom:1px solid black;padding:10px 5%;color:black;font-size:100%;}
+            input:focus{outline:none;}
+            input[type="submit"]{width:30%;margin:20px 35%;font-family:Montserrat;font-size:100%;background-color:lavender;color:black;font-weight:bold;border:1px solid lavender;padding:10px 0;cursor:pointer;}
+            input[type="submit"]:hover,input[type="submit"]:focus{outline:none;background-color:black;color:lavender;transition-duration:0.5s;font-weight:normal}
+            .stack{width:25%;border:2px solid lavender;margin:30px 37.5%;}
+            .harkat,.barkat{width:50%;}
+            .harkat{float:left;padding-top:100px;}
+            .barkat{float:right;}
+            span{width:90%;display:block;padding:10px 5%;text-align:center;border-bottom:1px solid lavender;}
+        </style>
+    </head>
+    <body>
+        <h2>Stack implementation</h2>
+        <div class="harkat">
+            <form method="get" name="pushArray" onsubmit="return pushIntoArray()">
+                <input type="number" name="item" placeholder="Stack element" required autofocus>
+                <input type="submit" value="Push">
+            </form>
+            <form method="get" onsubmit="return popFromArray()">
+                <input type="submit" value="Pop">
+            </form>
+        </div>
+
+        <div class="barkat">
+            <h2 style="text-align:center;"><u>Stack</u></h2>
+            <div class="stack">
+            </div>
+        </div>
+        
+        <script>
+            var aStack = [];
+            function pushIntoArray() {
+                if(aStack.length==5) {
+                    alert("Stack overflow!");
+                    document.forms["pushArray"]["item"].value = "";
+                    return false;
+                }
+                aStack.push(document.forms["pushArray"]["item"].value);
+                
+                var span = document.createElement("span");
+                span.innerHTML = document.forms["pushArray"]["item"].value;
+                span.id = "e" + aStack.length;
+                document.forms["pushArray"]["item"].value = "";
+                document.getElementsByClassName("stack")[0].prepend(span);
+                return false;
+            }
+
+            function popFromArray() {
+                if(aStack.length==0) {
+                    alert("Stack underflow!!");
+                    return false;
+                }
+                document.getElementById("e"+aStack.length).remove();
+                alert("Popped element : " + aStack.pop());
+                return false;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practical</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+            body{margin:0;background-color:black;color:lavender;font-family:Montserrat;}
+            h2{width:100%;text-align:center;margin:40px 0;}
+            form{width:50%;margin:50px 25%;border:2px solid lavender;}
+            div{width:100%;padding:20px 0;border:1px solid lavender;}
+            span{width:30%;float:left;text-align:right;padding:10px 5%;}
+            input,select{width:40%;margin-left:5%;font-family:Montserrat;background-color:transparent;border:none;border-bottom:1px solid black;padding:10px 5%;color:lavender;font-size:100%;}
+            input:focus{outline:none;border-bottom:1px solid lavender;transition-duration:1s;}
+            select{border:1px solid black;}
+            select:focus{outline:none;border:1px solid lavender;transition-duration:1s;}
+            option{color:lavender;background-color:black;outline:none;border:none;}
+            input[type="submit"]{width:20%;margin:30px 40%;font-family:Montserrat;font-size:100%;background-color:lavender;color:black;font-weight:bold;border:1px solid lavender;padding:10px 0;cursor:pointer;}
+            input[type="submit"]:hover,input[type="submit"]:focus{outline:none;background-color:black;color:lavender;transition-duration:0.5s;font-weight:normal}
+            #Faisal{width:50%;margin:50px 25%;padding:0;border:none;display:none;}
+            #Faisal div{min-height:60px;}
+            #Faisal div span:nth-child(even){text-align:left;}
+            @media (max-width: 600px) {#Faisal,form{width:80%;margin-left:10%;}button{width:30%;margin:25px 35%;}span,input,select{width:80%;text-align:center;}}
+        </style>
+    </head>
+
+    <body>
+        <form method="post" name="registrationForm" action="" onsubmit="return isValidForm()">
+        <h2>Student Registration Form</h2>
+            <div>
+                <span>Roll No</span>
+                <input type="text" name="rollNo" placeholder="7-digit Roll No assigned to you" autofocus>
+            </div>
+            <div>
+                <span>Name</span>
+                <input type="text" name="studentName" placeholder="Enter your name here...">
+            </div>
+            <div>
+                <span>Date of Birth</span>
+                <input type="date" name="DOB"> <!-- min="1970-01-01" max="2010-12-31"-->
+            </div>
+            <div>
+                <span>Course</span>
+                <select name="course">
+                    <option value="B.Sc. (Hons) Computer Science">B.Sc. (Hons) Computer Science</option>
+                    <option value="B.Sc. (Hons) Statistics">B.Sc. (Hons) Statistics</option>
+                    <option value="B.Sc. (Hons) Mathematics">B.Sc. (Hons) Mathematics</option>
+                    <option value="B.Voc. Software Development">B.Voc. Software Development</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="REGISTER">
+            </div>
+        </form>
+        
+        <div id="Faisal">
+            <h2><u>Form Details</u></h2>
+            <div id="rn"></div>
+            <div id="nm"></div>
+            <div id="db"></div>
+            <div id="co"></div>
+        </div>
+        
+        <script>
+            var numbers_7 = /^([0-9]{7})$/;
+            var alphabets = /^[a-zA-Z ]{5,50}$/;
+            function isValidForm() {
+                var rollNo = document.forms["registrationForm"]["rollNo"];
+                var name = document.forms["registrationForm"]["studentName"];
+                var dob = document.forms["registrationForm"]["DOB"];
+                var course = document.forms["registrationForm"]["course"];
+                if(rollNo.value==="") {
+                    alert("Please enter roll no.!");
+                    rollNo.focus();
+                    return false;
+                } else {
+                    if(!numbers_7.test(rollNo.value)) {
+                        alert("Enter a valid 7-digit number!");
+                        rollNo.focus();
+                        return false;
+                    }
+                }
+                if(name.value==="") {
+                    alert("Please enter your name!");
+                    name.focus();
+                    return false;
+                } else {
+                    if(!alphabets.test(name.value)) {
+                        alert("Enter a valid name!");
+                        name.focus();
+                        return false;
+                    }
+                }
+                if(dob.value==="") {
+                    alert("Please enter your Date of Birth!");
+                    dob.focus();
+                    return false;
+                } else {
+                }
+                var dat = new Date(dob.valueAsDate);
+                var dateString = "";
+                var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                dateString += days[dat.getDay()] + ", ";
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                dateString += months[dat.getMonth()] + " " + dat.getDate() + ", " + dat.getFullYear();
+                
+                document.forms["registrationForm"].remove();
+                document.getElementById("Faisal").style.display = "block";
+                document.getElementById("rn").innerHTML = "<span>Roll No. : </span><span>" + rollNo.value + "</span>";
+                document.getElementById("nm").innerHTML = "<span>Name : </span><span>" + name.value + "</span>";
+                document.getElementById("db").innerHTML = "<span>Date of Birth : </span><span>" + dateString + "</span>";
+                document.getElementById("co").innerHTML = "<span>Course : </span><span>" + course.value + "</span>";
+                return false;
+            }
+        </script>
+    </body>
+</html>
